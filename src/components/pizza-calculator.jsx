@@ -1,7 +1,5 @@
-// components/pizza/PizzaCalculator.jsx
-"use client";
 import { useState, useEffect } from "react";
-import { format, addDays, subHours } from "date-fns";
+import { addDays, subHours } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Pizza, AlertTriangle, InfoIcon, ExternalLink } from "lucide-react";
 import TimeSelector from "./TimeSelector";
@@ -16,6 +14,7 @@ export default function PizzaCalculator() {
   const [hydration, setHydration] = useState(65);
   const [salt, setSalt] = useState(3);
   const [recommendedTimeRange, setRecommendedTimeRange] = useState(null);
+  const [mainDoughTimeRange, setMainDoughTimeRange] = useState(null);
   const [totalDoughWeight, setTotalDoughWeight] = useState(0);
   const [flourWeight, setFlourWeight] = useState(0);
   const [waterWeight, setWaterWeight] = useState(0);
@@ -49,6 +48,10 @@ export default function PizzaCalculator() {
       const rangeStart = subHours(dinnerTime, 28);
       const rangeEnd = subHours(dinnerTime, 20);
       setRecommendedTimeRange({ start: rangeStart, end: rangeEnd });
+      // Main dough time range (3-2 hours before)
+      const mainDoughRangeStart = subHours(dinnerTime, 3);
+      const mainDoughRangeEnd = subHours(dinnerTime, 2);
+      setMainDoughTimeRange({ start: mainDoughRangeStart, end: mainDoughRangeEnd });
     }
   }, [date, time]);
 
@@ -134,6 +137,7 @@ export default function PizzaCalculator() {
           {recommendedTimeRange && (
             <RecipeSteps
               recommendedTimeRange={recommendedTimeRange}
+              mainDoughTimeRange={mainDoughTimeRange}
               date={date}
               time={time}
               poolishSteps={poolishSteps}

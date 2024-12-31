@@ -4,6 +4,7 @@ import { format } from "date-fns";
 
 export default function RecipeSteps({
   recommendedTimeRange,
+  mainDoughTimeRange,
   date,
   time,
   poolishSteps,
@@ -75,6 +76,11 @@ export default function RecipeSteps({
           <h4 className="text-xl font-semibold mb-2 text-orange-500">
             2️⃣ Main Dough
           </h4>
+          <p className="mb-4 text-gray-700">
+                      <strong>Recommended time to start: </strong>
+                      Between {format(mainDoughTimeRange.start, "EEE, dd-MMM-yyyy HH:mm")} and{" "}
+                      {format(mainDoughTimeRange.end, "EEE, dd-MMM-yyyy HH:mm")}
+                    </p>
           <ul className="list-disc list-inside text-gray-700 mb-4 space-y-1">
             <li>Remaining Flour: {remainingFlour}g</li>
             <li>Remaining Water: {remainingWater}g</li>
